@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import RecipesAppContext from './RecipesAppContext';
 
 function RecipesAppProvider({ children }) {
-  const context = {};
+  const context = 0;
   return (
     <RecipesAppContext.Provider value={ context }>
       {children}

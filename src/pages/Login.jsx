@@ -4,7 +4,7 @@ function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const validateForm = () => {
-    const minPasswordLength = 6;
+    const minPasswordLength = 7;
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     const isEmailValid = emailRegex.test(formData.email);
     const isPasswordValid = formData.password.length >= minPasswordLength;
