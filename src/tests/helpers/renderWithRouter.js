@@ -18,9 +18,7 @@ const renderWithRouter = (
   // spread do retorno do render { getByTestId, getByRole, etc }
   ...render(
     <Router history={ history }>
-      <Provider value={}>
-        {component}
-      </Provider>
+      {component}
     </Router>,
   ),
 
