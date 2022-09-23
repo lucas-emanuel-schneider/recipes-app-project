@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const history = useHistory();
 
   const validateForm = () => {
-    const minPasswordLength = 6;
+    const minPasswordLength = 7;
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
     const isEmailValid = emailRegex.test(formData.email);
     const isPasswordValid = formData.password.length >= minPasswordLength;
@@ -20,6 +22,8 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // tem que fazer o localStorage ainda!
+    history.push('/meals');
   };
   return (
     <div>
