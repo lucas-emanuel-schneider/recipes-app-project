@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
+  const history = useHistory();
 
   const validateForm = () => {
     const minPasswordLength = 7;
@@ -20,6 +22,8 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // tem que fazer o localStorage ainda!
+    history.push('/meals');
   };
   return (
     <div>
