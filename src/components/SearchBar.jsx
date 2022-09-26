@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import RecipesAppContext from '../context/RecipesAppContext';
 
 function SearchBar() {
-  const { setSearch } = useContext(RecipesAppContext);
+  const { getSearchRecipes } = useContext(RecipesAppContext);
   const [formData, setFormData] = useState({
     value: '',
     type: 'ingredient',
@@ -18,7 +18,7 @@ function SearchBar() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearch(formData);
+    getSearchRecipes(formData);
   };
 
   return (
