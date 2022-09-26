@@ -6,6 +6,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 
 const testEmail = 'teste@trybe.com';
 const mealsRoute = '/meals';
+const testPassword = '1234567';
 
 describe('testando componente Login', () => {
   // Este arquivo pode ser modificado ou deletado sem problemas
@@ -37,7 +38,7 @@ describe('testando componente Login', () => {
     });
     // escreve os valores no input
     userEvent.type(inputEmail, testEmail);
-    userEvent.type(inputPassword, testEmail);
+    userEvent.type(inputPassword, testPassword);
     // Verifica se estão na tela
     expect(buttonSubmit).toBeEnabled();
   });
@@ -52,7 +53,7 @@ describe('testando componente Login', () => {
     });
     // escreve os valores no input
     userEvent.type(inputEmail, testEmail);
-    userEvent.type(inputPassword, testEmail);
+    userEvent.type(inputPassword, testPassword);
     // Clica no Botão de Submit
     userEvent.click(buttonSubmit);
     // Verifica se estão na tela
