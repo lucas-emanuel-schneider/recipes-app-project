@@ -4,9 +4,6 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
-const testEmail = 'teste@trybe.com';
-const mealsRoute = '/meals';
-
 describe('testando componente Footer', () => {
   it('Testa se o componente Footer possui os elementos', () => {
     // Renderiza
