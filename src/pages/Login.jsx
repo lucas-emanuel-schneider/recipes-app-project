@@ -22,7 +22,9 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // tem que fazer o localStorage ainda!
+    localStorage.setItem('user', JSON.stringify({ email: formData.email }));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('drinksToken', 1);
     history.push('/meals');
   };
   return (
