@@ -1,21 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string, bool } from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header({ tittle, isSearch }) {
+function Header({ title, isSearch }) {
+  const history = useHistory();
+
+  const handleProfileClick = () => {
+    history.push('/profile');
+  };
+
   return (
     <div>
-      <h1 data-testid="page-title">{ tittle }</h1>
-      <img data-testid="profile-top-btn" src={ profileIcon } alt="profile" />
+      <h1 data-testid="page-title">{ title }</h1>
+      <img
+        role="presentation"
+        data-testid="profile-top-btn"
+        src={ profileIcon }
+        alt="profile"
+        onClick={ handleProfileClick }
+      />
       { isSearch && <img data-testid="search-top-btn" src={ searchIcon } alt="" /> }
     </div>
   );
 }
 
 Header.propTypes = {
-  tittle: PropTypes.string.isRequired,
-  isSearch: PropTypes.bool.isRequired,
-};
+  title: string,
+  isSearch: bool,
+}.isRequired;
 
 export default Header;
