@@ -5,7 +5,7 @@ function SearchBar() {
   const { setSearch } = useContext(RecipesAppContext);
   const [formData, setFormData] = useState({
     value: '',
-    type: '',
+    type: 'ingredient',
   });
 
   const handleChange = ({ target }) => {
