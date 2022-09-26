@@ -1,43 +1,46 @@
-import React, { useContext, useEffect } from 'react';
-import RecipesAppContext from '../context/RecipesAppContext';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import useSearchFilter from '../hooks/useSearchFilter';
 import {
   fetchDrinksByFirstLetter,
   fetchDrinksByIngredient,
   fetchDrinksByName,
 } from '../services/cocktailsAPI';
 import Header from './Header';
+import RecipeCard from './RecipeCard';
 
 const headerTitle = 'Drinks';
 
 function Drinks() {
-  const { recipes, search, setRecipes } = useContext(RecipesAppContext);
-  useEffect(() => {
-    const updateRecipeList = async () => {
-      let data;
-      const { type, value } = search;
-      switch (type) {
-      case 'ingredient':
-        data = await fetchDrinksByIngredient(value);
-        break;
-      case 'name':
-        data = await fetchDrinksByName(value);
-        break;
-      case 'first-letter':
-        data = await fetchDrinksByFirstLetter(value);
-        break;
-      default:
-        setRecipes([]);
-      }
+  const history = useHistory();
+  const filtered = useSearchFilter({
+    fetchByIngredient: fetchDrinksByIngredient,
+    fetchByName: fetchDrinksByName,
+    fetchByFirstLetter: fetchDrinksByFirstLetter,
+  });
 
-      if (!data) global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      setRecipes(data);
-    };
-    updateRecipeList();
-  }, [search]);
+  useEffect(() => {
+    if (!filtered) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      return;
+    }
+    if (filtered.length === 1) {
+      history.push(`drinks/${filtered[0].idDrink}`);
+    }
+  }, [filtered]);
 
   return (
     <div>
       <Header title={ headerTitle } showSearchBtn />
+      {filtered
+        && filtered.map(({ strDrink, strDrinkThumb }, index) => (
+          <RecipeCard
+            key={ index }
+            index={ index }
+            name={ strDrink }
+            src={ strDrinkThumb }
+          />
+        ))}
     </div>
   );
 }
