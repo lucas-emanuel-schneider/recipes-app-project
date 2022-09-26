@@ -9,6 +9,9 @@ function Profile() {
   const [email, setEmail] = useState('');
   const history = useHistory();
   useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('user'))) {
+      localStorage.setItem('user', JSON.stringify({ email: '' }));
+    }
     const emailStorage = localStorage.getItem('user');
     const response = JSON.parse(emailStorage);
     setEmail(response.email);
