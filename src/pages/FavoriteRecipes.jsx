@@ -6,7 +6,7 @@ const headerTitle = 'Favorite Recipes';
 function FavoriteRecipes() {
   return (
     <div>
-      <Header title={ headerTitle } isSearch={ false } />
+      <Header title={ headerTitle } />
     </div>
   );
 }

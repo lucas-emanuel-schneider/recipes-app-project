@@ -6,7 +6,7 @@ const headerTitle = 'Profile';
 function Profile() {
   return (
     <div>
-      <Header title={ headerTitle } isSearch={ false } />
+      <Header title={ headerTitle } />
     </div>
   );
 }

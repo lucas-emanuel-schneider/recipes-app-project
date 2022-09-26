@@ -6,7 +6,7 @@ const headerTitle = 'Meals';
 function Meals() {
   return (
     <div>
-      <Header title={ headerTitle } isSearch />
+      <Header title={ headerTitle } showSearchBtn />
     </div>
   );
 }
