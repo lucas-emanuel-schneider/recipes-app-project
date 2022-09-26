@@ -8,6 +8,7 @@ function RecipesAppProvider({ children }) {
     value: '',
     type: '',
   });
+  const [recipes, setRecipes] = useState([]);
 
   const toggleSearchBar = () => {
     setIsSearching((prevState) => !prevState);
@@ -16,6 +17,8 @@ function RecipesAppProvider({ children }) {
   const contextValue = {
     isSearching,
     search,
+    recipes,
+    setRecipes,
     setSearch,
     toggleSearchBar,
   };

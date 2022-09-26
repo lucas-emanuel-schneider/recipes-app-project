@@ -16,7 +16,8 @@ function SearchBar() {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     setSearch(formData);
   };
 
