@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearchFilter from '../hooks/useSearchFilter';
 import {
@@ -8,16 +8,20 @@ import {
 } from '../services/cocktailsAPI';
 import Header from './Header';
 import RecipeCard from './RecipeCard';
+import RecipesAppContext from '../context/RecipesAppContext';
 
 const headerTitle = 'Drinks';
 
 function Drinks() {
+  const { setCategory } = useContext(RecipesAppContext);
   const history = useHistory();
   const filtered = useSearchFilter({
     fetchByIngredient: fetchDrinksByIngredient,
     fetchByName: fetchDrinksByName,
     fetchByFirstLetter: fetchDrinksByFirstLetter,
   });
+
+  useEffect(() => setCategory('drinks'), []);
 
   useEffect(() => {
     if (!filtered) {
@@ -33,12 +37,13 @@ function Drinks() {
     <div>
       <Header title={ headerTitle } showSearchBtn />
       {filtered
-        && filtered.map(({ strDrink, strDrinkThumb }, index) => (
+        && filtered.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
           <RecipeCard
             key={ index }
             index={ index }
             name={ strDrink }
             src={ strDrinkThumb }
+            id={ idDrink }
           />
         ))}
     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import useSearchFilter from '../hooks/useSearchFilter';
 import {
@@ -8,16 +8,20 @@ import {
 } from '../services/mealsAPI';
 import Header from './Header';
 import RecipeCard from './RecipeCard';
+import RecipesAppContext from '../context/RecipesAppContext';
 
 const headerTitle = 'Meals';
 
 function Meals() {
+  const { setCategory } = useContext(RecipesAppContext);
   const history = useHistory();
   const filtered = useSearchFilter({
     fetchByIngredient: fetchMealsByIngredient,
     fetchByName: fetchMealsByName,
     fetchByFirstLetter: fetchMealsByFirstLetter,
   });
+
+  useEffect(() => setCategory('meals'), []);
 
   useEffect(() => {
     if (!filtered) {
@@ -33,12 +37,13 @@ function Meals() {
     <div>
       <Header title={ headerTitle } showSearchBtn />
       {filtered
-        && filtered.map(({ strMeal, strMealThumb }, index) => (
+        && filtered.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <RecipeCard
             key={ index }
             index={ index }
             name={ strMeal }
             src={ strMealThumb }
+            id={ idMeal }
           />
         ))}
     </div>
