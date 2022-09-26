@@ -1,8 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
+
+const headerTittle = 'Favorite Recipes';
 
 function FavoriteRecipes() {
   return (
-    <div>FavoriteRecipes</div>
+    <div>
+      <Header tittle={ headerTittle } isSearch={ false } />
+    </div>
   );
 }
 

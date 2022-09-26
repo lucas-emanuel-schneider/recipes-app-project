@@ -1,8 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
+
+const headerTittle = 'Profile';
 
 function Profile() {
   return (
-    <div>Profile</div>
+    <div>
+      <Header tittle={ headerTittle } isSearch={ false } />
+    </div>
   );
 }
 
