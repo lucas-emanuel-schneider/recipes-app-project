@@ -1,43 +1,30 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import useSearchFilter from '../hooks/useSearchFilter';
-import {
-  fetchMealsByFirstLetter,
-  fetchMealsByIngredient,
-  fetchMealsByName,
-} from '../services/mealsAPI';
+import RecipesAppContext from '../context/RecipesAppContext';
 import Header from './Header';
 import RecipeCard from './RecipeCard';
-import RecipesAppContext from '../context/RecipesAppContext';
 
 const headerTitle = 'Meals';
 
 function Meals() {
-  const { setCategory } = useContext(RecipesAppContext);
+  const { recipes, setCategory } = useContext(RecipesAppContext);
   const history = useHistory();
-  const filtered = useSearchFilter({
-    fetchByIngredient: fetchMealsByIngredient,
-    fetchByName: fetchMealsByName,
-    fetchByFirstLetter: fetchMealsByFirstLetter,
-  });
-
-  useEffect(() => setCategory('meals'), []);
 
   useEffect(() => {
-    if (!filtered) {
-      global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      return;
+    setCategory('meals');
+  }, []);
+
+  useEffect(() => {
+    if (recipes && recipes.length === 1) {
+      history.push(`meals/${recipes[0].idMeal}`);
     }
-    if (filtered.length === 1) {
-      history.push(`meals/${filtered[0].idMeal}`);
-    }
-  }, [filtered]);
+  }, [recipes]);
 
   return (
     <div>
       <Header title={ headerTitle } showSearchBtn />
-      {filtered
-        && filtered.map(({ strMeal, strMealThumb, idMeal }, index) => (
+      {recipes
+        && recipes.map(({ strMeal, strMealThumb, idMeal }, index) => (
           <RecipeCard
             key={ index }
             index={ index }
