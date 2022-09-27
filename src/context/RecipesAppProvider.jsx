@@ -5,6 +5,7 @@ import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
 
 const MAX_RECIPES = 12;
+const MAX_CATEGORIES = 5;
 
 function RecipesAppProvider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
@@ -13,11 +14,14 @@ function RecipesAppProvider({ children }) {
   //   type: '',
   // });
   const [recipes, setRecipes] = useState([]);
+  const [initialRecipes, setInitialRecipes] = useState([]);
   const [category, setCategory] = useState('meals');
+  const [subCategories, setSubCategories] = useState([]);
+  const [filter, setFilter] = useState('');
   // const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-  const getFirstBatch = (array) => (
-    array && array.filter((recipe, index) => index < MAX_RECIPES)
+  const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
+    array && array.filter((recipe, index) => index < lastElement)
   );
 
   useEffect(() => {
@@ -25,9 +29,29 @@ function RecipesAppProvider({ children }) {
       const { fetchByName } = category === 'meals' ? mealsAPI : drinksAPI;
       const data = await fetchByName('');
       setRecipes(getFirstBatch(data));
+      setInitialRecipes(getFirstBatch(data));
     };
+    const getSubCategories = async () => {
+      const { fetchCategories } = category === 'meals' ? mealsAPI : drinksAPI;
+      const data = await fetchCategories();
+      setSubCategories(getFirstBatch(data, MAX_CATEGORIES));
+    };
+
     getRecipes();
+    getSubCategories();
   }, [category]);
+
+  const getFilteredRecipes = async (newFilter) => {
+    if (filter === newFilter || !newFilter) {
+      setFilter('');
+      setRecipes(initialRecipes);
+      return;
+    }
+    const { fetchByCategory } = category === 'meals' ? mealsAPI : drinksAPI;
+    const data = await fetchByCategory(newFilter);
+    setFilter(newFilter);
+    setRecipes(getFirstBatch(data));
+  };
 
   const getSearchRecipes = async (search) => {
     const { type, value } = search;
@@ -64,15 +88,14 @@ function RecipesAppProvider({ children }) {
 
   const contextValue = {
     isSearching,
-    // search,
     recipes,
-    // filteredRecipes,
+    filter,
     setCategory,
-    // getRecipes,
+    getFilteredRecipes,
     getSearchRecipes,
-    // setSearch,
     toggleSearchBar,
     category,
+    subCategories,
   };
 
   return (
