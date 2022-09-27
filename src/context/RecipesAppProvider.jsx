@@ -9,16 +9,12 @@ const MAX_CATEGORIES = 5;
 
 function RecipesAppProvider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
-  // const [search, setSearch] = useState({
-  //   value: '',
-  //   type: '',
-  // });
   const [recipes, setRecipes] = useState([]);
   const [initialRecipes, setInitialRecipes] = useState([]);
   const [category, setCategory] = useState('meals');
   const [subCategories, setSubCategories] = useState([]);
   const [filter, setFilter] = useState('');
-  // const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [recipeDetails, setRecipeDetails] = useState([]);
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
     array && array.filter((recipe, index) => index < lastElement)
@@ -74,7 +70,6 @@ function RecipesAppProvider({ children }) {
       break;
     // no default
     }
-    // setFilteredRecipes(data);
 
     if (!data) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
@@ -87,15 +82,17 @@ function RecipesAppProvider({ children }) {
   };
 
   const contextValue = {
-    isSearching,
-    recipes,
-    filter,
-    setCategory,
-    getFilteredRecipes,
-    getSearchRecipes,
-    toggleSearchBar,
     category,
     subCategories,
+    isSearching,
+    filter,
+    recipes,
+    recipeDetails,
+    toggleSearchBar,
+    setCategory,
+    getSearchRecipes,
+    getFilteredRecipes,
+    setRecipeDetails,
   };
 
   return (

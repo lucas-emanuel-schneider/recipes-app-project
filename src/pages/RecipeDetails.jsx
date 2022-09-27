@@ -1,16 +1,33 @@
-import React from 'react';
-// import React, { useContext, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import RecipesAppContext from '../context/RecipesAppContext';
+import React, { useEffect, useContext } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import DrinksDetails from '../components/DrinksDetails';
+import MealsDetails from '../components/MealsDetails';
+import drinksAPI from '../services/drinksAPI';
+import mealsAPI from '../services/mealsAPI';
+import RecipesAppContext from '../context/RecipesAppContext';
 
 function RecipeDetails() {
-  // const { category } = useContext(RecipesAppContext);
-  // const { id } = useParams();
+  const { setRecipeDetails } = useContext(RecipesAppContext);
+  const { id } = useParams();
+  const location = useLocation();
 
-  // useEffect(() => category === 'meals' ? , []);
+  const isMeal = location.pathname.includes('meals');
+  useEffect(() => {
+    const getDetails = async () => {
+      const { fetchById } = isMeal ? mealsAPI : drinksAPI;
+      const data = await fetchById(id);
+      setRecipeDetails(data);
+    };
+    getDetails();
+  }, [id, location.pathname, isMeal, setRecipeDetails]);
 
   return (
-    <div>RecipeDetails</div>
+    <div>
+      {
+        isMeal ? <MealsDetails />
+          : <DrinksDetails />
+      }
+    </div>
   );
 }
 
