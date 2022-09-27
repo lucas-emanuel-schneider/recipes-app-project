@@ -14,6 +14,7 @@ function RecipesAppProvider({ children }) {
   // });
   const [recipes, setRecipes] = useState([]);
   const [category, setCategory] = useState('meals');
+  const [recipeDetails, setRecipeDetails] = useState([]);
   // const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   const getFirstBatch = (array) => (
@@ -68,11 +69,12 @@ function RecipesAppProvider({ children }) {
     recipes,
     // filteredRecipes,
     setCategory,
-    // getRecipes,
+    category,
     getSearchRecipes,
     // setSearch,
     toggleSearchBar,
-    category,
+    setRecipeDetails,
+    recipeDetails,
   };
 
   return (
