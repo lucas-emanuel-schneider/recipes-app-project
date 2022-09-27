@@ -13,13 +13,13 @@ function Meals() {
 
   useEffect(() => {
     setCategory('meals');
-  }, []);
+  }, [setCategory]);
 
   useEffect(() => {
     if (!filter && recipes && recipes.length === 1) {
       history.push(`meals/${recipes[0].idMeal}`);
     }
-  }, [recipes]);
+  }, [recipes, filter, history]);
 
   return (
     <div>
