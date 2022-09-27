@@ -20,11 +20,13 @@ function DrinksDetails() {
         <h3 data-testid="recipe-category">{ strAlcoholic }</h3>
         <p data-testid="instructions">{ strInstructions }</p>
         <ul>
-          {/* {
+          {
             ingredients.map((item, index) => (
-              <li key={ index } />
+              <li key={ index }>
+                {`${item[1]} ${(measures[index][1]) ? measures[index][1] : ''}`}
+              </li>
             ))
-          } */}
+          }
         </ul>
       </div>)
   );
