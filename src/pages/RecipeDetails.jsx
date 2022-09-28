@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import DrinksDetails from '../components/DrinksDetails';
 import MealsDetails from '../components/MealsDetails';
 import drinksAPI from '../services/drinksAPI';
@@ -16,8 +16,8 @@ function RecipeDetails() {
   } = useContext(RecipesAppContext);
 
   const { id } = useParams();
-  const location = useLocation();
-  const isMeal = location.pathname.includes('meals');
+  const { pathname } = useLocation();
+  const isMeal = pathname.includes('meals');
   const [isDone, setIsDone] = useState(false);
   const [inProgress, setInProgress] = useState(false);
 
@@ -28,7 +28,7 @@ function RecipeDetails() {
       setRecipeDetails(data);
     };
     getDetails();
-  }, [id, location.pathname, isMeal, setRecipeDetails]);
+  }, [id, pathname, isMeal, setRecipeDetails]);
 
   useEffect(() => {
     setIsDone(doneRecipes.some((recipe) => recipe.id === id));
@@ -51,13 +51,15 @@ function RecipeDetails() {
       <Recommendations isMeal={ isMeal } />
       { !isDone
         && (
-          <button
-            type="button"
-            className="start-recipe-btn"
-            data-testid="start-recipe-btn"
-          >
-            { inProgress ? 'Continue Recipe' : 'Start Recipe' }
-          </button>
+          <Link to={ `${pathname}/in-progress` }>
+            <button
+              type="button"
+              className="start-recipe-btn"
+              data-testid="start-recipe-btn"
+            >
+              { inProgress ? 'Continue Recipe' : 'Start Recipe' }
+            </button>
+          </Link>
         )}
     </div>
   );
