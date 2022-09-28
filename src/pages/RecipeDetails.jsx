@@ -5,13 +5,14 @@ import MealsDetails from '../components/MealsDetails';
 import drinksAPI from '../services/drinksAPI';
 import mealsAPI from '../services/mealsAPI';
 import RecipesAppContext from '../context/RecipesAppContext';
+import Recommendations from '../components/Recommendations';
 
 function RecipeDetails() {
   const { setRecipeDetails } = useContext(RecipesAppContext);
   const { id } = useParams();
   const location = useLocation();
-
   const isMeal = location.pathname.includes('meals');
+
   useEffect(() => {
     const getDetails = async () => {
       const { fetchById } = isMeal ? mealsAPI : drinksAPI;
@@ -27,6 +28,7 @@ function RecipeDetails() {
         isMeal ? <MealsDetails />
           : <DrinksDetails />
       }
+      <Recommendations isMeal={ isMeal } />
     </div>
   );
 }
