@@ -1,4 +1,5 @@
-.Footer {
+.Footer, .start-recipe-btn {
   bottom: 0;
   position: fixed;
 }
+
