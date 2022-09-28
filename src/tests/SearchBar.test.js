@@ -24,7 +24,7 @@ describe('Testa o componente SearchBar', () => {
     userEvent.click(screen.getByTestId('exec-search-btn'));
 
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(global.fetch).toHaveBeenCalled();
       expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=orange');
     });
 

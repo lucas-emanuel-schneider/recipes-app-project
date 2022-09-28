@@ -4,6 +4,8 @@ import RecipesAppContext from './RecipesAppContext';
 import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
 import { loadFavorites, saveFavorites } from '../services/favoritesStorage';
+import { loadDoneRecipes } from '../services/doneRecipesStorage';
+import { loadProgressRecipes } from '../services/inProgressStorage';
 
 const MAX_RECIPES = 12;
 const MAX_CATEGORIES = 5;
@@ -17,6 +19,8 @@ function RecipesAppProvider({ children }) {
   const [filter, setFilter] = useState('');
   const [recipeDetails, setRecipeDetails] = useState([]);
   const [favorites, setFavorites] = useState(loadFavorites());
+  const [doneRecipes, setDoneRecipes] = useState(loadDoneRecipes());
+  const [inProgressRecipes, setInProgressRecipes] = useState(loadProgressRecipes());
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
     array && array.filter((recipe, index) => index < lastElement)
@@ -116,6 +120,10 @@ function RecipesAppProvider({ children }) {
     setRecipeDetails,
     getFirstBatch,
     toggleFavorite,
+    doneRecipes,
+    setDoneRecipes,
+    inProgressRecipes,
+    setInProgressRecipes,
   };
 
   return (

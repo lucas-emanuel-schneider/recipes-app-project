@@ -13,7 +13,6 @@ function FavoriteButton({ recipeInfo }) {
       const { id } = recipeInfo;
       setIsFavorite(favorites.some((favorite) => id === favorite.id));
     }
-    console.log(favorites);
   }, [favorites, recipeInfo]);
 
   const handleFavoriteClick = () => {

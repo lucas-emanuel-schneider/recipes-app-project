@@ -1,35 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import RecipesAppContext from '../context/RecipesAppContext';
 
 function MealsDetails() {
   const { recipeDetails } = useContext(RecipesAppContext);
-  const [storage, setStorage] = useState(false);
-  const [inProgress, setInProgress] = useState(false);
 
   const {
-    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
     strInstructions,
     strYoutube,
   } = recipeDetails;
-
-  useEffect(() => {
-    const doneRecipesStorage = localStorage.getItem('doneRecipes');
-    if (doneRecipesStorage && idMeal) {
-      const resultStorage = JSON.parse(doneRecipesStorage);
-      const resultBool = resultStorage.includes(idMeal);
-      setStorage(resultBool);
-    }
-    const inProgressStorage = localStorage.getItem('inProgressRecipes');
-    if (inProgressStorage && idMeal) {
-      const result = JSON.parse(inProgressStorage);
-      const resultProgressBool = result.includes(idMeal);
-      setInProgress(resultProgressBool);
-    }
-  }, [idMeal]);
-
   const entries = Object.entries(recipeDetails);
   const details = entries
     .filter((entrie) => entrie[1] !== null && entrie[1] !== '');
@@ -39,16 +20,6 @@ function MealsDetails() {
     recipeDetails
     && (
       <div>
-        { !storage
-        && (
-          <button
-            type="button"
-            className="start-recipe-btn"
-            data-testid="start-recipe-btn"
-          >
-            { !inProgress ? 'Start Recipe' : 'Continue Recipe' }
-          </button>
-        )}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <h3 data-testid="recipe-category">{ strCategory }</h3>
