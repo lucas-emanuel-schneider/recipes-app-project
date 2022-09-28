@@ -6,6 +6,7 @@ import drinksAPI from '../services/drinksAPI';
 import mealsAPI from '../services/mealsAPI';
 import RecipesAppContext from '../context/RecipesAppContext';
 import Recommendations from '../components/Recommendations';
+import DetailsHeader from '../components/DetailsHeader';
 
 function RecipeDetails() {
   const { setRecipeDetails } = useContext(RecipesAppContext);
@@ -24,6 +25,7 @@ function RecipeDetails() {
 
   return (
     <div>
+      <DetailsHeader isMeal={ isMeal } />
       {
         isMeal ? <MealsDetails />
           : <DrinksDetails />
