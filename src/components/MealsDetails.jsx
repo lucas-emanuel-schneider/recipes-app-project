@@ -4,6 +4,7 @@ import RecipesAppContext from '../context/RecipesAppContext';
 function MealsDetails() {
   const { recipeDetails } = useContext(RecipesAppContext);
   const [storage, setStorage] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
 
   const {
     idMeal,
@@ -16,10 +17,16 @@ function MealsDetails() {
 
   useEffect(() => {
     const doneRecipesStorage = localStorage.getItem('doneRecipes');
-    if (doneRecipesStorage) {
+    if (doneRecipesStorage && idMeal) {
       const resultStorage = JSON.parse(doneRecipesStorage);
-      setStorage(resultStorage);
-      if (idMeal && storage.includes(idMeal)) setStorage(true);
+      const resultBool = resultStorage.includes(idMeal);
+      setStorage(resultBool);
+    }
+    const inProgressStorage = localStorage.getItem('inProgressRecipes');
+    if (inProgressStorage && idMeal) {
+      const result = JSON.parse(inProgressStorage);
+      const resultProgressBool = result.includes(idMeal);
+      setInProgress(resultProgressBool);
     }
   }, [idMeal]);
 
@@ -39,7 +46,7 @@ function MealsDetails() {
             className="start-recipe-btn"
             data-testid="start-recipe-btn"
           >
-            Start Recipe
+            { !inProgress ? 'Start Recipe' : 'Continue Recipe' }
           </button>
         )}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
