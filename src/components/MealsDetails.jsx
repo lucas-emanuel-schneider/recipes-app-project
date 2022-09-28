@@ -1,9 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RecipesAppContext from '../context/RecipesAppContext';
 
 function MealsDetails() {
   const { recipeDetails } = useContext(RecipesAppContext);
+  const [storage, setStorage] = useState(false);
+
   const {
+    idMeal,
     strMealThumb,
     strMeal,
     strCategory,
@@ -13,12 +16,12 @@ function MealsDetails() {
 
   useEffect(() => {
     const doneRecipesStorage = localStorage.getItem('doneRecipes');
-    console.log(doneRecipesStorage);
     if (doneRecipesStorage) {
       const resultStorage = JSON.parse(doneRecipesStorage);
-      console.log(resultStorage);
+      setStorage(resultStorage);
+      if (idMeal && storage.includes(idMeal)) setStorage(true);
     }
-  }, []);
+  }, [idMeal]);
 
   const entries = Object.entries(recipeDetails);
   const details = entries
@@ -29,9 +32,16 @@ function MealsDetails() {
     recipeDetails
     && (
       <div>
-        <button type="button" className="start-recipe-btn" data-testid="start-recipe-btn">
-          Start Recipe
-        </button>
+        { !storage
+        && (
+          <button
+            type="button"
+            className="start-recipe-btn"
+            data-testid="start-recipe-btn"
+          >
+            Start Recipe
+          </button>
+        )}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h1 data-testid="recipe-title">{ strMeal }</h1>
         <h3 data-testid="recipe-category">{ strCategory }</h3>
