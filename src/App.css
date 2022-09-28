@@ -1,3 +1,20 @@
+.horizontal-scroll {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.scroll-item {
+  display: inline-block;
+}
+
+.scroll-item img {
+  width: 200px;
+}
+
+.scroll-item span {
+  display: block;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

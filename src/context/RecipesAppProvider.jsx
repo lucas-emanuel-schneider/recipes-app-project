@@ -93,6 +93,7 @@ function RecipesAppProvider({ children }) {
     getSearchRecipes,
     getFilteredRecipes,
     setRecipeDetails,
+    getFirstBatch,
   };
 
   return (
