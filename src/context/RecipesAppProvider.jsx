@@ -12,7 +12,7 @@ function RecipesAppProvider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
   const [recipes, setRecipes] = useState([]);
   const [initialRecipes, setInitialRecipes] = useState([]);
-  const [category, setCategory] = useState('meals');
+  const [category, setCategory] = useState('');
   const [subCategories, setSubCategories] = useState([]);
   const [filter, setFilter] = useState('');
   const [recipeDetails, setRecipeDetails] = useState([]);
@@ -34,9 +34,10 @@ function RecipesAppProvider({ children }) {
       const data = await fetchCategories();
       setSubCategories(getFirstBatch(data, MAX_CATEGORIES));
     };
-
-    getRecipes();
-    getSubCategories();
+    if (category) {
+      getRecipes();
+      getSubCategories();
+    }
   }, [category]);
 
   const getFilteredRecipes = async (newFilter) => {

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-// import { useLocation } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareButton() {
   const [showSpan, setShowSpan] = useState(false);
-  // const { pathname } = useLocation();
 
   const handleShareClick = () => {
     setShowSpan(true);
