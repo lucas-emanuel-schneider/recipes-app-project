@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesAppContext from './RecipesAppContext';
 import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
+import { loadFavorites, saveFavorites } from '../services/favoritesStorage';
 
 const MAX_RECIPES = 12;
 const MAX_CATEGORIES = 5;
@@ -15,6 +16,7 @@ function RecipesAppProvider({ children }) {
   const [subCategories, setSubCategories] = useState([]);
   const [filter, setFilter] = useState('');
   const [recipeDetails, setRecipeDetails] = useState([]);
+  const [favorites, setFavorites] = useState(loadFavorites());
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
     array && array.filter((recipe, index) => index < lastElement)
@@ -81,6 +83,23 @@ function RecipesAppProvider({ children }) {
     setIsSearching((prevState) => !prevState);
   };
 
+  const toggleFavorite = (recipe) => {
+    const { id } = recipe;
+    const isFavorite = favorites.some((favorite) => id === favorite.id);
+    let newFavorites;
+    switch (isFavorite) {
+    case true:
+      newFavorites = favorites.filter((favorite) => id !== favorite.id);
+      break;
+    default:
+      newFavorites = [...favorites, recipe];
+      break;
+    }
+    setFavorites(newFavorites);
+    saveFavorites(newFavorites);
+    console.log('toggleFavorite');
+  };
+
   const contextValue = {
     category,
     subCategories,
@@ -88,12 +107,14 @@ function RecipesAppProvider({ children }) {
     filter,
     recipes,
     recipeDetails,
+    favorites,
     toggleSearchBar,
     setCategory,
     getSearchRecipes,
     getFilteredRecipes,
     setRecipeDetails,
     getFirstBatch,
+    toggleFavorite,
   };
 
   return (
