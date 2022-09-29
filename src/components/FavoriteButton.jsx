@@ -16,8 +16,9 @@ function FavoriteButton({ recipeInfo }) {
   }, [favorites, recipeInfo]);
 
   const handleFavoriteClick = () => {
-    console.log('oi');
-    toggleFavorite(recipeInfo);
+    const recipe = { ...recipeInfo };
+    if (recipe.tags) delete recipe.tags;
+    toggleFavorite(recipe);
   };
 
   return (

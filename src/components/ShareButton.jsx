@@ -7,7 +7,7 @@ function ShareButton() {
 
   const handleShareClick = () => {
     setShowSpan(true);
-    copy(window.location.href);
+    copy(window.location.href.replace('/in-progress', ''));
   };
 
   return (
