@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { instanceOf } from 'prop-types';
+import { instanceOf, string } from 'prop-types';
 import notFavIcon from '../images/whiteHeartIcon.svg';
 import favIcon from '../images/blackHeartIcon.svg';
 import RecipesAppContext from '../context/RecipesAppContext';
 
-function FavoriteButton({ recipeInfo }) {
+function FavoriteButton({ recipeInfo, testId }) {
   const { favorites, toggleFavorite } = useContext(RecipesAppContext);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -24,7 +24,7 @@ function FavoriteButton({ recipeInfo }) {
   return (
     <img
       role="presentation"
-      data-testid="favorite-btn"
+      data-testid={ testId || 'favorite-btn' }
       src={ isFavorite ? favIcon : notFavIcon }
       alt="Favorite button icon"
       onClick={ handleFavoriteClick }
@@ -32,8 +32,13 @@ function FavoriteButton({ recipeInfo }) {
   );
 }
 
+FavoriteButton.defaultProps = {
+  testId: '',
+};
+
 FavoriteButton.propTypes = {
   recipeInfo: instanceOf(Object),
+  testId: string,
 }.isRequired;
 
 export default FavoriteButton;
