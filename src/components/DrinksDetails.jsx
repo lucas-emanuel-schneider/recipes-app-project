@@ -3,14 +3,18 @@ import RecipesAppContext from '../context/RecipesAppContext';
 
 function DrinksDetails() {
   const { recipeDetails } = useContext(RecipesAppContext);
-  const { strDrinkThumb, strDrink, strAlcoholic, strInstructions } = recipeDetails;
+  const {
+    strDrinkThumb,
+    strDrink,
+    strAlcoholic,
+    strInstructions,
+  } = recipeDetails;
   const entries = Object.entries(recipeDetails);
   const details = entries
     .filter((entrie) => entrie[1] !== null);
   const ingredients = details.filter((ing) => ing[0].includes('strIngredient'));
   const measures = details.filter((mea) => mea[0].includes('strMeasure'));
-  console.log(ingredients);
-  console.log(measures);
+
   return (
     recipeDetails
     && (

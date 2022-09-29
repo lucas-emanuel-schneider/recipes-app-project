@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './FixedItens.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import RecipesAppProvider from './context/RecipesAppProvider';

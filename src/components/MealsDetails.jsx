@@ -3,6 +3,7 @@ import RecipesAppContext from '../context/RecipesAppContext';
 
 function MealsDetails() {
   const { recipeDetails } = useContext(RecipesAppContext);
+
   const {
     strMealThumb,
     strMeal,
@@ -10,14 +11,11 @@ function MealsDetails() {
     strInstructions,
     strYoutube,
   } = recipeDetails;
-
   const entries = Object.entries(recipeDetails);
   const details = entries
     .filter((entrie) => entrie[1] !== null && entrie[1] !== '');
   const ingredients = details.filter((ing) => ing[0].includes('strIngredient'));
   const measures = details.filter((mea) => mea[0].includes('strMeasure'));
-  console.log(ingredients);
-  console.log(measures);
   return (
     recipeDetails
     && (
