@@ -49,6 +49,15 @@ function RecipeInProgress() {
       <h1 data-testid="recipe-title">{ recipeInfo.name }</h1>
       <ShareButton />
       <FavoriteButton recipeInfo={ recipeInfo } />
+      <h3 data-testid="recipe-category">{ strCategory }</h3>
+      <p data-testid="instructions">{ strInstructions }</p>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+      >
+        Finalizar Receita
+
+      </button>
     </div>
   );
 }

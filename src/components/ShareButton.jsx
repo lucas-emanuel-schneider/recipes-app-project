@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
+import { string } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-function ShareButton() {
+function ShareButton({ link }) {
   const [showSpan, setShowSpan] = useState(false);
 
   const handleShareClick = () => {
     setShowSpan(true);
-    copy(window.location.href.replace('/in-progress', ''));
+    copy(link || window.location.href.replace('/in-progress', ''));
   };
 
   return (
@@ -23,5 +24,13 @@ function ShareButton() {
     </div>
   );
 }
+
+ShareButton.defaultProps = {
+  link: '',
+};
+
+ShareButton.propTypes = {
+  link: string,
+};
 
 export default ShareButton;
