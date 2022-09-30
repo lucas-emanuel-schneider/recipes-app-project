@@ -37,7 +37,7 @@ describe('Testa o componente SearchBar', () => {
       expect(global.fetch).toHaveBeenCalledTimes(3);
       expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=Chicken');
       meals.forEach((meal, index) => {
-        expect(screen.getByTestId(`${index}-recipe-card`));
+        expect(screen.getByTestId(`${index}-recipe-card`)).toBeInTheDocument();
       });
     });
   });
@@ -59,7 +59,7 @@ describe('Testa o componente SearchBar', () => {
       expect(global.fetch).toHaveBeenCalledTimes(3);
       expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Light rum');
       drinks.forEach((meal, index) => {
-        expect(screen.getByTestId(`${index}-recipe-card`));
+        expect(screen.getByTestId(`${index}-recipe-card`)).toBeInTheDocument();
       });
     });
   });
@@ -121,7 +121,7 @@ describe('Testa o componente SearchBar', () => {
     await waitFor(() => {
       expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/search.php?f=b');
       meals.forEach((meal, index) => {
-        expect(screen.getByTestId(`${index}-recipe-card`));
+        expect(screen.getByTestId(`${index}-recipe-card`)).toBeInTheDocument();
       });
     });
   });
@@ -147,7 +147,7 @@ describe('Testa o componente SearchBar', () => {
     await waitFor(() => {
       expect(global.fetch).toBeCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a');
       drinks.forEach((meal, index) => {
-        expect(screen.getByTestId(`${index}-recipe-card`));
+        expect(screen.getByTestId(`${index}-recipe-card`)).toBeInTheDocument();
       });
     });
   });

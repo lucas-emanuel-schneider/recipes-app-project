@@ -5,8 +5,10 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import oneDrinkId15997 from '../../cypress/mocks/oneDrinkId15997';
 import oneMeal from '../../cypress/mocks/oneMeal';
+
 const ID_MEAL = 52771;
 const ID_TEST = 15997;
+
 describe('Testa a página Recipe inProgress', () => {
   beforeEach(() => {
     cleanup();
