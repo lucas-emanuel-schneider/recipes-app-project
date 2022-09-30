@@ -13,7 +13,6 @@ function Recipes() {
 
   useEffect(() => {
     setCategory(pathname.includes('meals') ? 'meals' : 'drinks');
-    console.log('useEffet');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
