@@ -9,6 +9,8 @@ import drinksByIngredient from '../../cypress/mocks/drinksByIngredient';
 import beefMeals from '../../cypress/mocks/beefMeals';
 import cocktailDrinks from '../../cypress/mocks/cocktailDrinks';
 
+window.alert = jest.fn();
+
 const SEARCH_TOP_BTN_ID = 'search-top-btn';
 const SEARCH_INPUT_ID = 'search-input';
 const NAME_RADIO_ID = 'name-search-radio';

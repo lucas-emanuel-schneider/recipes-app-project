@@ -1,9 +1,13 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 import fetch from '../../cypress/mocks/fetch';
+import { saveDoneRecipes } from '../services/doneRecipesStorage';
+import doneRecipesMock from './helpers/doneRecipesMock';
+import { saveFavorites } from '../services/favoritesStorage';
+import favoritesMock from './helpers/favoritesMock';
 
 describe('Testa o componente UserRecipes', () => {
   beforeEach(() => {
@@ -11,24 +15,36 @@ describe('Testa o componente UserRecipes', () => {
   });
 
   it('Deve listar receitas finalizadas na rota done-recipes', async () => {
+    saveDoneRecipes(doneRecipesMock);
+
     renderWithRouter(<App />, { initialEntries: ['/done-recipes'] });
 
-    // await waitFor(() => {
-    //   expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/lookup.php?i=52771');
-    // });
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(3);
+  });
+  it('Deve listar receitas favoritadas na rota favorites', async () => {
+    saveFavorites(favoritesMock);
 
-    // expect(screen.getByTestId(/favorite-btn/i).src).toContain(notFavIcon);
+    renderWithRouter(<App />, { initialEntries: ['/favorite-recipes'] });
 
-    // userEvent.click(screen.getByTestId(/favorite-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(4);
+  });
+  it('Deve ser possivel filtrar elementos por tipo', async () => {
+    saveDoneRecipes(doneRecipesMock);
 
-    // await waitFor(() => {
-    //   expect(screen.getByTestId(/favorite-btn/i).src).toContain(favIcon);
-    // });
+    renderWithRouter(<App />, { initialEntries: ['/done-recipes'] });
 
-    // userEvent.click(screen.getByTestId(/favorite-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(3);
 
-    // await waitFor(() => {
-    //   expect(screen.getByTestId(/favorite-btn/i).src).toContain(notFavIcon);
-    // });
+    userEvent.click(screen.getByTestId(/filter-by-meal-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(1);
+
+    userEvent.click(screen.getByTestId(/filter-by-all-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(3);
+
+    userEvent.click(screen.getByTestId(/filter-by-drink-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(2);
+
+    userEvent.click(screen.getByTestId(/filter-by-drink-btn/i));
+    expect(screen.getAllByTestId(/horizontal-name/i).length).toBe(3);
   });
 });
