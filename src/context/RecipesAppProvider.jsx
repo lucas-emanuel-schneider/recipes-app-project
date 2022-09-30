@@ -24,7 +24,7 @@ function RecipesAppProvider({ children }) {
   const [checkList, setCheckList] = useState([]);
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
-    array && array.filter((recipe, index) => index < lastElement)
+    array && array.slice(0, lastElement)
   );
 
   useEffect(() => {
