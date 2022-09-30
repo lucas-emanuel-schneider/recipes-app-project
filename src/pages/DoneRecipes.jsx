@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
-import RecipesList from '../components/RecipesList';
+import UserRecipes from '../components/UserRecipes';
 import RecipesAppContext from '../context/RecipesAppContext';
 
 const headerTitle = 'Done Recipes';
@@ -10,7 +10,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header title={ headerTitle } />
-      <RecipesList recipes={ doneRecipes } />
+      <UserRecipes recipes={ doneRecipes } />
     </div>
   );
 }

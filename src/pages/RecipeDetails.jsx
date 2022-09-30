@@ -1,12 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
-import DrinksDetails from '../components/DrinksDetails';
-import MealsDetails from '../components/MealsDetails';
+import DetailsHeader from '../components/DetailsHeader';
+import Details from '../components/Details';
+import Recommendations from '../components/Recommendations';
 import drinksAPI from '../services/drinksAPI';
 import mealsAPI from '../services/mealsAPI';
 import RecipesAppContext from '../context/RecipesAppContext';
-import Recommendations from '../components/Recommendations';
-import DetailsHeader from '../components/DetailsHeader';
 
 function RecipeDetails() {
   const {
@@ -32,22 +31,19 @@ function RecipeDetails() {
 
   useEffect(() => {
     setIsDone(doneRecipes.some((recipe) => recipe.id === id));
-  }, [doneRecipes]);
+  }, [doneRecipes, id]);
 
   useEffect(() => {
     const { meals, drinks } = inProgressRecipes;
     const current = isMeal ? meals : drinks;
     if (current[id]) setInProgress(true);
     else setInProgress(false);
-  }, [inProgressRecipes]);
+  }, [inProgressRecipes, isMeal, id]);
 
   return (
     <div>
       <DetailsHeader isMeal={ isMeal } />
-      {
-        isMeal ? <MealsDetails />
-          : <DrinksDetails />
-      }
+      <Details />
       <Recommendations isMeal={ isMeal } />
       { !isDone
         && (
