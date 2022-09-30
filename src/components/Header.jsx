@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { string } from 'prop-types';
+import { bool, string } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -16,7 +16,9 @@ function Header({ title, showSearchBtn }) {
 
   return (
     <div>
-      <h1 data-testid="page-title">{ title }</h1>
+      <h1 data-testid="page-title">
+        { title }
+      </h1>
       <img
         role="presentation"
         data-testid="profile-top-btn"
@@ -46,6 +48,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
   title: string,
+  showSearchBtn: bool,
 }.isRequired;
 
 export default Header;

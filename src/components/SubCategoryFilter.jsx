@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import RecipesAppContext from '../context/RecipesAppContext';
 
-function CategoryFilter() {
+function SubCategoryFilter() {
   const { subCategories, getFilteredRecipes } = useContext(RecipesAppContext);
 
   const handleFilterClick = (category) => {
@@ -17,7 +17,7 @@ function CategoryFilter() {
       >
         All
       </button>
-      {subCategories && subCategories.map((category, index) => (
+      {subCategories.map((category, index) => (
         <button
           type="button"
           key={ index }
@@ -31,4 +31,4 @@ function CategoryFilter() {
   );
 }
 
-export default CategoryFilter;
+export default SubCategoryFilter;

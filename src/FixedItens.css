@@ -3,3 +3,7 @@
   position: fixed;
 }
 
+.checked {
+  text-decoration: line-through;
+}
+

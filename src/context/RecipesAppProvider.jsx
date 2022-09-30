@@ -5,7 +5,7 @@ import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
 import { loadFavorites, saveFavorites } from '../services/favoritesStorage';
 import { loadDoneRecipes } from '../services/doneRecipesStorage';
-import { loadProgressRecipes } from '../services/inProgressStorage';
+import { loadProgressRecipes, saveProgressRecipes } from '../services/inProgressStorage';
 
 const MAX_RECIPES = 12;
 const MAX_CATEGORIES = 5;
@@ -21,6 +21,7 @@ function RecipesAppProvider({ children }) {
   const [favorites, setFavorites] = useState(loadFavorites());
   const [doneRecipes, setDoneRecipes] = useState(loadDoneRecipes());
   const [inProgressRecipes, setInProgressRecipes] = useState(loadProgressRecipes());
+  const [checkList, setCheckList] = useState([]);
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
     array && array.filter((recipe, index) => index < lastElement)
@@ -44,6 +45,23 @@ function RecipesAppProvider({ children }) {
     }
   }, [category]);
 
+  // const getRecipesAndSubCategories = async (currCategory) => {
+  //   const {
+  //     fetchByName, fetchCategories,
+  //   } = currCategory === 'meals' ? mealsAPI : drinksAPI;
+
+  //   const recipesData = await fetchByName('');
+  //   const subCatData = await fetchCategories();
+
+  //   const newRecipes = getFirstBatch(recipesData);
+  //   setRecipes(newRecipes);
+  //   setInitialRecipes(newRecipes);
+
+  //   setCategory(currCategory);
+  //   setSubCategories(getFirstBatch(subCatData, MAX_CATEGORIES));
+  //   console.log('getRecipesAndSubCategories');
+  // };
+
   const getFilteredRecipes = async (newFilter) => {
     if (filter === newFilter || !newFilter) {
       setFilter('');
@@ -54,6 +72,7 @@ function RecipesAppProvider({ children }) {
     const data = await fetchByCategory(newFilter);
     setFilter(newFilter);
     setRecipes(getFirstBatch(data));
+    console.log('getFilteredRecipes');
   };
 
   const getSearchRecipes = async (search) => {
@@ -82,6 +101,7 @@ function RecipesAppProvider({ children }) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     setRecipes(getFirstBatch(data));
+    console.log('getSearchRecipes');
   };
 
   const toggleSearchBar = () => {
@@ -105,6 +125,28 @@ function RecipesAppProvider({ children }) {
     console.log('toggleFavorite');
   };
 
+  const setCurrentCheckList = (id, isMeal) => {
+    const type = isMeal ? 'meals' : 'drinks';
+    setCheckList(inProgressRecipes[type][id] || []);
+  };
+
+  const updateInProgress = (isMeal, id, ingredient) => {
+    const type = isMeal ? 'meals' : 'drinks';
+    const cloneRecipes = { ...inProgressRecipes };
+    const haveIngredient = cloneRecipes[type][id]
+    && cloneRecipes[type][id].includes(ingredient);
+    if (haveIngredient) {
+      cloneRecipes[type][id] = cloneRecipes[type][id]
+        .filter((ing) => ing !== ingredient);
+    } else {
+      if (!cloneRecipes[type][id]) cloneRecipes[type][id] = [];
+      cloneRecipes[type][id].push(ingredient);
+    }
+    setInProgressRecipes(cloneRecipes);
+    saveProgressRecipes(cloneRecipes);
+    setCurrentCheckList(id, isMeal);
+  };
+
   const contextValue = {
     category,
     subCategories,
@@ -114,6 +156,7 @@ function RecipesAppProvider({ children }) {
     recipeDetails,
     favorites,
     toggleSearchBar,
+    // getRecipesAndSubCategories,
     setCategory,
     getSearchRecipes,
     getFilteredRecipes,
@@ -124,6 +167,9 @@ function RecipesAppProvider({ children }) {
     setDoneRecipes,
     inProgressRecipes,
     setInProgressRecipes,
+    updateInProgress,
+    checkList,
+    setCurrentCheckList,
   };
 
   return (
