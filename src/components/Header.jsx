@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { bool } from 'prop-types';
+import { bool, string } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import RecipesAppContext from '../context/RecipesAppContext';
 import SearchBar from './SearchBar';
 
-function Header({ showSearchBtn }) {
-  const { category, isSearching, toggleSearchBar } = useContext(RecipesAppContext);
+function Header({ title, showSearchBtn }) {
+  const { isSearching, toggleSearchBar } = useContext(RecipesAppContext);
   const history = useHistory();
 
   const handleProfileClick = () => {
@@ -17,7 +17,7 @@ function Header({ showSearchBtn }) {
   return (
     <div>
       <h1 data-testid="page-title">
-        { category === 'meals' ? 'Meals' : 'Drinks' }
+        { title }
       </h1>
       <img
         role="presentation"
@@ -47,6 +47,7 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
+  title: string,
   showSearchBtn: bool,
 }.isRequired;
 

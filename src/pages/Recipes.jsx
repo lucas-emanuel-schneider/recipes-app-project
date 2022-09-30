@@ -26,7 +26,7 @@ function Recipes() {
 
   return (
     <div>
-      <Header showSearchBtn />
+      <Header title={ category === 'meals' ? 'Meals' : 'Drinks' } showSearchBtn />
       <SubCategoryFilter />
       {
         recipes
