@@ -13,6 +13,7 @@ function RecipeInProgress() {
     updateInProgress,
     checkList,
     setCurrentCheckList,
+    saveDoneRecipe,
   } = useContext(RecipesAppContext);
 
   // const [checkList, setcheckList] = useState([]);
@@ -53,7 +54,7 @@ function RecipeInProgress() {
     alcoholicOrNot: strAlcoholic || '',
     name: strMeal || strDrink,
     image: strMealThumb || strDrinkThumb,
-    tags: strTags || [],
+    tags: (strTags && strTags.split(', ')) || [],
   };
 
   useEffect(() => {
@@ -69,6 +70,7 @@ function RecipeInProgress() {
     updateInProgress(isMeal, id, target.value);
   };
   const finishRecipe = () => {
+    saveDoneRecipe(recipeInfo);
     history.push('/done-recipes');
   };
 

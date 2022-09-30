@@ -4,7 +4,7 @@ import RecipesAppContext from './RecipesAppContext';
 import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
 import { loadFavorites, saveFavorites } from '../services/favoritesStorage';
-import { loadDoneRecipes } from '../services/doneRecipesStorage';
+import { loadDoneRecipes, saveDoneRecipes } from '../services/doneRecipesStorage';
 import { loadProgressRecipes, saveProgressRecipes } from '../services/inProgressStorage';
 
 const MAX_RECIPES = 12;
@@ -138,6 +138,15 @@ function RecipesAppProvider({ children }) {
     setCurrentCheckList(id, isMeal);
   };
 
+  const saveDoneRecipe = (recipe) => {
+    const alreadyDone = doneRecipes.some(({ id }) => id === recipe.id);
+    if (!alreadyDone) {
+      const newDoneRecipes = [...doneRecipes, recipe];
+      setDoneRecipes(newDoneRecipes);
+      saveDoneRecipes(newDoneRecipes);
+    }
+  };
+
   const contextValue = {
     category,
     subCategories,
@@ -153,13 +162,13 @@ function RecipesAppProvider({ children }) {
     setRecipeDetails,
     getFirstBatch,
     toggleFavorite,
+    saveDoneRecipe,
     doneRecipes,
+    setCurrentCheckList,
     setDoneRecipes,
     inProgressRecipes,
-    setInProgressRecipes,
     updateInProgress,
     checkList,
-    setCurrentCheckList,
   };
 
   return (
