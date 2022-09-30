@@ -44,6 +44,23 @@ function RecipesAppProvider({ children }) {
     }
   }, [category]);
 
+  // const getRecipesAndSubCategories = async (currCategory) => {
+  //   const {
+  //     fetchByName, fetchCategories,
+  //   } = currCategory === 'meals' ? mealsAPI : drinksAPI;
+
+  //   const recipesData = await fetchByName('');
+  //   const subCatData = await fetchCategories();
+
+  //   const newRecipes = getFirstBatch(recipesData);
+  //   setRecipes(newRecipes);
+  //   setInitialRecipes(newRecipes);
+
+  //   setCategory(currCategory);
+  //   setSubCategories(getFirstBatch(subCatData, MAX_CATEGORIES));
+  //   console.log('getRecipesAndSubCategories');
+  // };
+
   const getFilteredRecipes = async (newFilter) => {
     if (filter === newFilter || !newFilter) {
       setFilter('');
@@ -54,6 +71,7 @@ function RecipesAppProvider({ children }) {
     const data = await fetchByCategory(newFilter);
     setFilter(newFilter);
     setRecipes(getFirstBatch(data));
+    console.log('getFilteredRecipes');
   };
 
   const getSearchRecipes = async (search) => {
@@ -82,6 +100,7 @@ function RecipesAppProvider({ children }) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
     setRecipes(getFirstBatch(data));
+    console.log('getSearchRecipes');
   };
 
   const toggleSearchBar = () => {
@@ -114,6 +133,7 @@ function RecipesAppProvider({ children }) {
     recipeDetails,
     favorites,
     toggleSearchBar,
+    // getRecipesAndSubCategories,
     setCategory,
     getSearchRecipes,
     getFilteredRecipes,
