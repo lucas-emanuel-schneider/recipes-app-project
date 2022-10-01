@@ -4,7 +4,7 @@ import RecipesAppContext from './RecipesAppContext';
 import mealsAPI from '../services/mealsAPI';
 import drinksAPI from '../services/drinksAPI';
 import { loadFavorites, saveFavorites } from '../services/favoritesStorage';
-import { loadDoneRecipes } from '../services/doneRecipesStorage';
+import { loadDoneRecipes, saveDoneRecipes } from '../services/doneRecipesStorage';
 import { loadProgressRecipes, saveProgressRecipes } from '../services/inProgressStorage';
 
 const MAX_RECIPES = 12;
@@ -24,7 +24,7 @@ function RecipesAppProvider({ children }) {
   const [checkList, setCheckList] = useState([]);
 
   const getFirstBatch = (array, lastElement = MAX_RECIPES) => (
-    array && array.filter((recipe, index) => index < lastElement)
+    array && array.slice(0, lastElement)
   );
 
   useEffect(() => {
@@ -44,23 +44,6 @@ function RecipesAppProvider({ children }) {
       getSubCategories();
     }
   }, [category]);
-
-  // const getRecipesAndSubCategories = async (currCategory) => {
-  //   const {
-  //     fetchByName, fetchCategories,
-  //   } = currCategory === 'meals' ? mealsAPI : drinksAPI;
-
-  //   const recipesData = await fetchByName('');
-  //   const subCatData = await fetchCategories();
-
-  //   const newRecipes = getFirstBatch(recipesData);
-  //   setRecipes(newRecipes);
-  //   setInitialRecipes(newRecipes);
-
-  //   setCategory(currCategory);
-  //   setSubCategories(getFirstBatch(subCatData, MAX_CATEGORIES));
-  //   console.log('getRecipesAndSubCategories');
-  // };
 
   const getFilteredRecipes = async (newFilter) => {
     if (filter === newFilter || !newFilter) {
@@ -82,7 +65,9 @@ function RecipesAppProvider({ children }) {
       fetchByName,
       fetchByFirstLetter,
     } = category === 'meals' ? mealsAPI : drinksAPI;
+
     let data;
+    // let invalidSearch = false;
 
     switch (type) {
     case 'ingredient':
@@ -92,7 +77,13 @@ function RecipesAppProvider({ children }) {
       data = await fetchByName(value);
       break;
     case 'first-letter':
+      if (value.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+        return;
+        // invalidSearch = true;
+      }
       data = await fetchByFirstLetter(value);
+
       break;
     // no default
     }
@@ -147,6 +138,15 @@ function RecipesAppProvider({ children }) {
     setCurrentCheckList(id, isMeal);
   };
 
+  const saveDoneRecipe = (recipe) => {
+    const alreadyDone = doneRecipes.some(({ id }) => id === recipe.id);
+    if (!alreadyDone) {
+      const newDoneRecipes = [...doneRecipes, recipe];
+      setDoneRecipes(newDoneRecipes);
+      saveDoneRecipes(newDoneRecipes);
+    }
+  };
+
   const contextValue = {
     category,
     subCategories,
@@ -156,20 +156,19 @@ function RecipesAppProvider({ children }) {
     recipeDetails,
     favorites,
     toggleSearchBar,
-    // getRecipesAndSubCategories,
     setCategory,
     getSearchRecipes,
     getFilteredRecipes,
     setRecipeDetails,
     getFirstBatch,
     toggleFavorite,
+    saveDoneRecipe,
     doneRecipes,
+    setCurrentCheckList,
     setDoneRecipes,
     inProgressRecipes,
-    setInProgressRecipes,
     updateInProgress,
     checkList,
-    setCurrentCheckList,
   };
 
   return (

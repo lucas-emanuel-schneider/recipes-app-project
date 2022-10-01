@@ -13,9 +13,8 @@ function RecipeInProgress() {
     updateInProgress,
     checkList,
     setCurrentCheckList,
+    saveDoneRecipe,
   } = useContext(RecipesAppContext);
-
-  // const [checkList, setcheckList] = useState([]);
 
   const { strMealThumb,
     strMeal,
@@ -53,7 +52,7 @@ function RecipeInProgress() {
     alcoholicOrNot: strAlcoholic || '',
     name: strMeal || strDrink,
     image: strMealThumb || strDrinkThumb,
-    tags: strTags || [],
+    tags: (strTags && strTags.split(', ')) || [],
   };
 
   useEffect(() => {
@@ -69,6 +68,7 @@ function RecipeInProgress() {
     updateInProgress(isMeal, id, target.value);
   };
   const finishRecipe = () => {
+    saveDoneRecipe(recipeInfo);
     history.push('/done-recipes');
   };
 
@@ -80,23 +80,26 @@ function RecipeInProgress() {
       <FavoriteButton recipeInfo={ recipeInfo } />
       <h3 data-testid="recipe-category">{ strCategory }</h3>
       {
-        ingredients.map((item, index) => (
-          <label
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            htmlFor={ index }
-            className={ checkList.includes(item[1]) ? 'checked' : '' }
-          >
-            <input
-              id={ index }
-              type="checkbox"
-              value={ item[1] }
-              checked={ checkList.includes(item[1]) }
-              onChange={ handleChecked }
-            />
-            { `${item[1]} ${(measures[index]) ? measures[index][1] : ''}` }
-          </label>
-        ))
+        ingredients.map((item, index) => {
+          const ingredient = `${item[1]} ${(measures[index]) ? measures[index][1] : ''}`;
+          return (
+            <label
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+              htmlFor={ index }
+              className={ checkList.includes(ingredient) ? 'checked' : '' }
+            >
+              <input
+                id={ index }
+                type="checkbox"
+                value={ ingredient }
+                checked={ checkList.includes(ingredient) }
+                onChange={ handleChecked }
+              />
+              { ingredient }
+            </label>
+          );
+        })
       }
       <p data-testid="instructions">{ strInstructions }</p>
       <button
