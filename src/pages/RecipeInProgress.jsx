@@ -3,8 +3,7 @@ import { useLocation, useParams, useHistory } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
 import drinksAPI from '../services/drinksAPI';
 import mealsAPI from '../services/mealsAPI';
-import ShareButton from '../components/ShareButton';
-import FavoriteButton from '../components/FavoriteButton';
+import DetailsHeader from '../components/DetailsHeader';
 
 function RecipeInProgress() {
   const {
@@ -74,44 +73,59 @@ function RecipeInProgress() {
 
   return (
     <div>
-      <img data-testid="recipe-photo" src={ recipeInfo.image } alt={ recipeInfo.name } />
-      <h1 data-testid="recipe-title">{ recipeInfo.name }</h1>
-      <ShareButton />
-      <FavoriteButton recipeInfo={ recipeInfo } />
-      <h3 data-testid="recipe-category">{ strCategory }</h3>
-      {
-        ingredients.map((item, index) => {
-          const ingredient = `${item[1]} ${(measures[index]) ? measures[index][1] : ''}`;
-          return (
-            <label
-              key={ index }
-              data-testid={ `${index}-ingredient-step` }
-              htmlFor={ index }
-              className={ checkList.includes(ingredient) ? 'checked' : '' }
-            >
-              <input
-                id={ index }
-                type="checkbox"
-                value={ ingredient }
-                checked={ checkList.includes(ingredient) }
-                onChange={ handleChecked }
-              />
-              { ingredient }
-            </label>
-          );
-        })
-      }
-      <p data-testid="instructions">{ strInstructions }</p>
-      <button
-        type="button"
-        className="start-recipe-btn"
-        data-testid="finish-recipe-btn"
-        onClick={ finishRecipe }
-        disabled={ checkList.length !== ingredients.length }
+      <DetailsHeader isMeal={ isMeal } />
+      <img
+        className="img-fluid"
+        data-testid="recipe-photo"
+        src={ recipeInfo.image }
+        alt={ recipeInfo.name }
+      />
+      <div
+        className="m-3"
       >
-        Finish Recipe
-
-      </button>
+        <h1 data-testid="recipe-title">{ recipeInfo.name }</h1>
+        <h3 data-testid="recipe-category">{ strCategory }</h3>
+        {
+          ingredients.map((item, index) => {
+            const ingr = `${item[1]} ${(measures[index]) ? measures[index][1] : ''}`;
+            return (
+              <label
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+                htmlFor={ index }
+                className={ checkList
+                  .includes(ingr)
+                  ? 'checked form-check-label form-check'
+                  : 'form-check-label form-check' }
+              >
+                <input
+                  className="form-check-input"
+                  id={ index }
+                  type="checkbox"
+                  value={ ingr }
+                  checked={ checkList.includes(ingr) }
+                  onChange={ handleChecked }
+                />
+                { ingr }
+              </label>
+            );
+          })
+        }
+        <p data-testid="instructions">{ strInstructions }</p>
+      </div>
+      <div
+        className="start-recipe-btn-container m-3 d-grid"
+      >
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-testid="finish-recipe-btn"
+          onClick={ finishRecipe }
+          disabled={ checkList.length !== ingredients.length }
+        >
+          Finish Recipe
+        </button>
+      </div>
     </div>
   );
 }

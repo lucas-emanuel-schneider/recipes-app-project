@@ -23,8 +23,11 @@ function UserRecipes({ recipes }) {
 
   return (
     <div>
-      <div>
+      <div
+        className="btn-group d-flex justify-content-center m-3"
+      >
         <button
+          className="btn btn-outline-primary"
           type="button"
           data-testid="filter-by-all-btn"
           onClick={ () => handleFilterClick('') }
@@ -32,6 +35,7 @@ function UserRecipes({ recipes }) {
           All
         </button>
         <button
+          className="btn btn-outline-primary"
           type="button"
           data-testid="filter-by-meal-btn"
           onClick={ () => handleFilterClick('meal') }
@@ -39,6 +43,7 @@ function UserRecipes({ recipes }) {
           Meals
         </button>
         <button
+          className="btn btn-outline-primary"
           type="button"
           data-testid="filter-by-drink-btn"
           onClick={ () => handleFilterClick('drink') }
@@ -46,7 +51,9 @@ function UserRecipes({ recipes }) {
           Drinks
         </button>
       </div>
-      <div>
+      <div
+        className="m-3"
+      >
         {filteredRecipes.map((recipe, index) => (
           <UserRecipeCard
             key={ index }

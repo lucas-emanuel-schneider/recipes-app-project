@@ -1,13 +1,10 @@
-.Footer, .start-recipe-btn {
+.Footer, .start-recipe-btn-container {
   bottom: 0;
   position: fixed;
+  left: 0;
+  right: 0;
 }
 
 .checked {
   text-decoration: line-through;
-}
-
-.Footer {
-  left: 0;
-  right: 0;
 }

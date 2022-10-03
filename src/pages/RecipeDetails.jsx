@@ -48,13 +48,17 @@ function RecipeDetails() {
       { !isDone
         && (
           <Link to={ `${pathname}/in-progress` }>
-            <button
-              type="button"
-              className="start-recipe-btn"
-              data-testid="start-recipe-btn"
+            <div
+              className="start-recipe-btn-container m-3 d-grid"
             >
-              { inProgress ? 'Continue Recipe' : 'Start Recipe' }
-            </button>
+              <button
+                className="btn btn-primary"
+                type="button"
+                data-testid="start-recipe-btn"
+              >
+                { inProgress ? 'Continue Recipe' : 'Start Recipe' }
+              </button>
+            </div>
           </Link>
         )}
     </div>

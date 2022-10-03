@@ -27,9 +27,19 @@ function DetailsHeader({ isMeal }) {
   };
 
   return (
-    <header>
-      <ShareButton />
-      <FavoriteButton recipeInfo={ recipeInfo } />
+    <header
+      className="position-absolute top-0 end-0"
+    >
+      <div
+        className="d-flex flex-row m-3"
+      >
+        <ShareButton />
+        <div
+          className="ms-3"
+        >
+          <FavoriteButton recipeInfo={ recipeInfo } />
+        </div>
+      </div>
     </header>
   );
 }

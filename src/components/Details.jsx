@@ -21,34 +21,53 @@ function Details() {
     && (
       <div>
         <img
+          className="img-fluid"
           data-testid="recipe-photo"
           src={ strMealThumb || strDrinkThumb }
           alt={ strMeal || strDrink }
         />
-        <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
-        <h3 data-testid="recipe-category">{ strAlcoholic || strCategory }</h3>
-        <p data-testid="instructions">{ strInstructions }</p>
-        <ul>
-          {
-            ingredients.map((item, index) => (
-              <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-                {`${item[1]} ${(measures[index]) ? measures[index][1] : ''}`}
-              </li>
-            ))
-          }
-        </ul>
-        {strYoutube
-        && <iframe
-          width="560"
-          height="315"
-          data-testid="video"
-          src={ strYoutube.replace('watch?v=', 'embed/') }
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer;
-          autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />}
+        <div
+          className="m-3"
+        >
+          <h1 data-testid="recipe-title">{ strMeal || strDrink }</h1>
+          <h3 data-testid="recipe-category">{ strAlcoholic || strCategory }</h3>
+          <ul>
+            {
+              ingredients.map((item, index) => (
+                <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+                  {`${item[1]} ${(measures[index]) ? measures[index][1] : ''}`}
+                </li>
+              ))
+            }
+          </ul>
+          <p
+            data-testid="instructions"
+            className="text-break"
+          >
+            { strInstructions }
+          </p>
+        </div>
+        {
+          strYoutube
+        && (
+          <div
+            className="m-3 d-flex"
+          >
+            <iframe
+              className="flex-grow-1"
+              // width="360"
+              height="315"
+              data-testid="video"
+              src={ strYoutube.replace('watch?v=', 'embed/') }
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer;
+        autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        )
+        }
 
       </div>)
   );
