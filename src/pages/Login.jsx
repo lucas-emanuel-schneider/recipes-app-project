@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import logo from '../images/logo.svg';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -31,6 +32,14 @@ function Login() {
     <div
       className="m-3"
     >
+      <div
+        className="d-flex justify-content-center"
+      >
+        <img
+          src={ logo }
+          alt="logo"
+        />
+      </div>
       <form
         onSubmit={ handleSubmit }
       >
@@ -52,14 +61,18 @@ function Login() {
           placeholder="Digite sua senha"
           value={ formData.password }
         />
-        <button
-          className="btn btn-primary"
-          type="submit"
-          disabled={ validateForm() }
-          data-testid="login-submit-btn"
+        <div
+          className="d-grid gap-2 col-6 mx-auto"
         >
-          Enviar
-        </button>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={ validateForm() }
+            data-testid="login-submit-btn"
+          >
+            Enviar
+          </button>
+        </div>
       </form>
     </div>
   );

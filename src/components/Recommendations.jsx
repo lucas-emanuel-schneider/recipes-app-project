@@ -21,7 +21,7 @@ function Recommendations({ isMeal }) {
   }, [isMeal, getFirstBatch]);
 
   return (
-    <div className="horizontal-scroll">
+    <div className="horizontal-scroll d-flex flex-row m-3">
       {
         recommendations
         && recommendations

@@ -7,18 +7,6 @@
   display: inline-block;
 }
 
-.card-image {
-  width: 200px;
-}
-
-.scroll-item img {
-  width: 200px;
-}
-
-.scroll-item span {
-  display: block;
-}
-
 .meals {
   align-items: center;
   background: #0fa36b;

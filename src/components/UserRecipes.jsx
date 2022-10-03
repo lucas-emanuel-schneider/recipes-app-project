@@ -52,7 +52,7 @@ function UserRecipes({ recipes }) {
         </button>
       </div>
       <div
-        className="m-3"
+        className="d-flex flex-row flex-wrap m-3 justify-content-between"
       >
         {filteredRecipes.map((recipe, index) => (
           <UserRecipeCard

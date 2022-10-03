@@ -24,33 +24,42 @@ function Profile() {
   return (
     <div>
       <Header title={ headerTitle } />
-      <p data-testid="profile-email">
-        {' '}
-        { email }
-      </p>
-      <Link to="/done-recipes">
-        <button
-          data-testid="profile-done-btn"
-          type="button"
-        >
-          Done Recipes
-        </button>
-      </Link>
-      <Link to="/favorite-recipes">
-        <button
-          data-testid="profile-favorite-btn"
-          type="button"
-        >
-          Favorite Recipes
-        </button>
-      </Link>
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ handleLogout }
+      <h1
+        className="text-center"
+        data-testid="profile-email"
       >
-        Logout
-      </button>
+        { email }
+      </h1>
+      <div
+        className="d-grid gap-2 col-6 mx-auto"
+      >
+        <Link to="/done-recipes">
+          <button
+            className="btn btn-primary w-100"
+            data-testid="profile-done-btn"
+            type="button"
+          >
+            Done Recipes
+          </button>
+        </Link>
+        <Link to="/favorite-recipes">
+          <button
+            className="btn btn-primary w-100"
+            data-testid="profile-favorite-btn"
+            type="button"
+          >
+            Favorite Recipes
+          </button>
+        </Link>
+        <button
+          className="btn btn-primary"
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ handleLogout }
+        >
+          Logout
+        </button>
+      </div>
       <Footer />
     </div>
   );

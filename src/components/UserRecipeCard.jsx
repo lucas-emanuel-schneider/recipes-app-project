@@ -17,23 +17,40 @@ function UserRecipeCard({ recipe, index, inFavoritesPage }) {
 
   return (
     <div
-      className="card d-flex flex-row"
+      style={ { width: '160px' } }
+      className="card mb-3"
     >
-      <Link to={ `/${type}s/${id}` }>
+      <Link
+        className="text-decoration-none"
+        to={ `/${type}s/${id}` }
+      >
         <img
           src={ image }
           alt={ `${name} icon` }
-          className="card-img rounded-start"
+          className="card-img"
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <div>
-        <Link to={ `/${type}s/${id}` }>
-          <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+      <div
+        className="card-body"
+      >
+        <Link
+          className="text-decoration-none"
+          to={ `/${type}s/${id}` }
+        >
+          <h3
+            className="fw-bold text-dark"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            {name}
+          </h3>
         </Link>
-        <h4 data-testid={ `${index}-horizontal-top-text` }>
+        <h5
+          className="card-text"
+          data-testid={ `${index}-horizontal-top-text` }
+        >
           {`${nationality || alcoholicOrNot} - ${category}`}
-        </h4>
+        </h5>
         <p
           className="text-muted"
           data-testid={ `${index}-horizontal-done-date` }
@@ -41,10 +58,12 @@ function UserRecipeCard({ recipe, index, inFavoritesPage }) {
           {doneDate}
         </p>
         {!inFavoritesPage && (
-          <div>
+          <div
+            className="d-flex flex-row flex-wrap"
+          >
             {tags.map((tag) => (
               <span
-                className="border border-primary"
+                className="border border-primary rounded mb-2"
                 key={ `${id}-${tag}` }
                 data-testid={ `${index}-${tag}-horizontal-tag` }
               >
@@ -53,16 +72,24 @@ function UserRecipeCard({ recipe, index, inFavoritesPage }) {
             ))}
           </div>
         )}
-        <ShareButton
-          link={ `${window.location.origin}/${type}s/${id}` }
-          testId={ `${index}-horizontal-share-btn` }
-        />
-        {inFavoritesPage && (
-          <FavoriteButton
-            testId={ `${index}-horizontal-favorite-btn` }
-            recipeInfo={ recipe }
+        <div
+          className="d-flex flex-row"
+        >
+          <ShareButton
+            link={ `${window.location.origin}/${type}s/${id}` }
+            testId={ `${index}-horizontal-share-btn` }
           />
-        )}
+          {inFavoritesPage && (
+            <div
+              className="ms-2"
+            >
+              <FavoriteButton
+                testId={ `${index}-horizontal-favorite-btn` }
+                recipeInfo={ recipe }
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
