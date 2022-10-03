@@ -6,7 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 function Footer() {
   return (
     <div
-      className="Footer"
+      className="Footer bg-secondary d-flex flex-row justify-content-around p-1"
       data-testid="footer"
     >
       <Link to="/drinks">

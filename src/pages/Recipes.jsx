@@ -27,8 +27,11 @@ function Recipes() {
     <div>
       <Header title={ category === 'meals' ? 'Meals' : 'Drinks' } showSearchBtn />
       <SubCategoryFilter />
-      {
-        recipes
+      <div
+        className="d-flex flex-row flex-wrap m-3 justify-content-between"
+      >
+        {
+          recipes
         && recipes.map(({
           strMeal, strDrink,
           strMealThumb, strDrinkThumb,
@@ -42,7 +45,8 @@ function Recipes() {
             id={ idMeal || idDrink }
           />
         ))
-      }
+        }
+      </div>
       <Footer />
     </div>
   );

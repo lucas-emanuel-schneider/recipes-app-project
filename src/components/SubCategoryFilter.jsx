@@ -9,8 +9,11 @@ function SubCategoryFilter() {
   };
 
   return (
-    <div>
+    <div
+      className="d-flex m-2 flex-wrap flex-row"
+    >
       <button
+        className="btn btn-outline-primary flex-grow-1"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleFilterClick('') }
@@ -19,6 +22,7 @@ function SubCategoryFilter() {
       </button>
       {subCategories.map((category, index) => (
         <button
+          className="btn btn-outline-primary flex-grow-1"
           type="button"
           key={ index }
           data-testid={ `${category}-category-filter` }

@@ -28,9 +28,14 @@ function Login() {
     history.push('/meals');
   };
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
+    <div
+      className="m-3"
+    >
+      <form
+        onSubmit={ handleSubmit }
+      >
         <input
+          className="form-control mb-3"
           type="text"
           name="email"
           data-testid="email-input"
@@ -39,6 +44,7 @@ function Login() {
           value={ formData.email }
         />
         <input
+          className="form-control mb-3"
           type="password"
           name="password"
           data-testid="password-input"
@@ -47,6 +53,7 @@ function Login() {
           value={ formData.password }
         />
         <button
+          className="btn btn-primary"
           type="submit"
           disabled={ validateForm() }
           data-testid="login-submit-btn"

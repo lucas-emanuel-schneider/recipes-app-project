@@ -16,27 +16,33 @@ function Header({ title, showSearchBtn }) {
 
   return (
     <div>
-      <h1 data-testid="page-title">
-        { title }
-      </h1>
-      <img
-        role="presentation"
-        data-testid="profile-top-btn"
-        src={ profileIcon }
-        alt="Profile button icon"
-        onClick={ handleProfileClick }
-      />
-      {
-        showSearchBtn && (
+      <div
+        className="d-flex flex-row m-3 justify-content-between"
+      >
+        <h1 data-testid="page-title">
+          { title }
+        </h1>
+        <div>
           <img
             role="presentation"
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="Search button icon"
-            onClick={ toggleSearchBar }
+            data-testid="profile-top-btn"
+            src={ profileIcon }
+            alt="Profile button icon"
+            onClick={ handleProfileClick }
           />
-        )
-      }
+          {
+            showSearchBtn && (
+              <img
+                role="presentation"
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="Search button icon"
+                onClick={ toggleSearchBar }
+              />
+            )
+          }
+        </div>
+      </div>
       {isSearching && <SearchBar />}
     </div>
   );
